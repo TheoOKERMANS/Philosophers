@@ -6,9 +6,20 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:11 by tokerman          #+#    #+#             */
-/*   Updated: 2022/07/12 20:09:39 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/07/12 20:19:28 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+/*
+norminette
+tests
+faire pour que pour 4 args ca fonctionne
+faire le makefile propre
+faire que des qu'un philo meurt le programme s'arrete
+verifier le truc des 10ms apres la mort car la on dit qu'il meurt des qu'il a les fourchettes
+*/
 
 #include "../includes/philo.h"
 

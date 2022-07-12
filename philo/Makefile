@@ -6,7 +6,7 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-NAME = philo_one
+NAME = philo
 
 $(NAME):
 	$(CC) -pthread -o $(NAME) $(FLAGS) $(addprefix mandatory/, $(SRC)) -g
