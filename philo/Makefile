@@ -1,4 +1,10 @@
-SRC = *.c
+SRC = free.c \
+main.c \
+math.c \
+philo.c \
+tid.c \
+utils.c \
+init.c
 
 OBJ = $(SRC:.c=.o)
 

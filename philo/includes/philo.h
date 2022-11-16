@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:14:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/09/20 18:48:38 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/16 20:00:37 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_game
 	struct timeval	start;
 
 	int				philo_died;
+	pthread_mutex_t	philodied_mtx;
 	pthread_mutex_t	prt_mtx;
 	pthread_mutex_t	eat_mtx;
 }	t_game;
@@ -49,14 +50,16 @@ typedef struct s_id
 	t_game			*game;
 	pthread_t		thread;
 	struct timeval	lst_eat;
+
+	pthread_mutex_t	eatcount_mtx;
 }	t_id;
 
 //utils
-t_fork		*get_fork_by_id(t_game *game, int id);
 void		mutex_print(t_id *tid, char *msg);
 size_t		ft_strlen(const char *str);
 void		split_sleep(t_id *tid, int time);
 int			all_eat(t_id *tid);
+void		philo_died(t_id *tid);
 
 //math
 int			ft_atoi(const char *str);
@@ -71,10 +74,12 @@ void		philo(char **argv, int num_phi_eat);
 t_id		*lst_tid(t_id *tid);
 t_id		*new_tid(int id, t_game *game);
 t_id		*get_id_by_id(t_id *tid, int id);
-t_id		*init_all(char **argv, int num_phi_eat);
 void		add_back_tid(t_id **tid, t_id *new);
 
 //free
 void		free_all(t_id *tid);
+
+//init
+t_id		*init_all(char **argv, int num_phi_eat);
 
 #endif
