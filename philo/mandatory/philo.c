@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:06:03 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/16 20:00:09 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:32:19 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*thread_func(void *args)
 
 	tid = (t_id *)args;
 	if (tid->id % 2 == 0)
-		usleep(1000);
+		usleep(2000 + tid->game->time2eat / 2);
 	pthread_mutex_lock(&(tid->eatcount_mtx));
 	while (tid->eat_count < tid->game->num_phi_eat)
 	{
@@ -86,6 +86,7 @@ void	waiting_death(t_id *tid)
 {
 	int				i;
 	struct timeval	time;
+	t_id			*tmp;
 
 	pthread_mutex_lock(&(tid->game->philodied_mtx));
 	while (tid->game->philo_died == 0)
@@ -96,9 +97,11 @@ void	waiting_death(t_id *tid)
 		{
 			pthread_mutex_lock(&(tid->game->eat_mtx));
 			gettimeofday(&time, NULL);
-			if (time_diff(&(get_id_by_id(tid, i)->lst_eat), &(time))
-				> tid->game->time2die)
+			tmp = get_id_by_id(tid, i);
+			pthread_mutex_lock(&(tmp->eatcount_mtx));
+			if (tmp->eat_count < tid->game->num_phi_eat && time_diff(&(tmp->lst_eat), &(time)) > tid->game->time2die)
 				philo_died(tid);
+			pthread_mutex_unlock(&(tmp->eatcount_mtx));
 			pthread_mutex_unlock(&(tid->game->eat_mtx));
 			usleep(100);
 		}
@@ -114,14 +117,17 @@ void	philo(char **argv, int num_phi_eat)
 	t_id	*temp;
 	t_id	*tid;
 	int		i;
+	int		nb_philo;
 
 	tid = init_all(argv, num_phi_eat);
 	i = 1;
 	gettimeofday(&(tid->game->start), NULL);
-	while (i <= ft_atoi(argv[1]))
+	nb_philo = ft_atoi(argv[1]);
+	temp = tid;
+	while (i <= nb_philo)
 	{
-		temp = get_id_by_id(tid, i);
 		pthread_create(&(temp->thread), NULL, thread_func, temp);
+		temp = temp->next;
 		i++;
 	}
 	waiting_death(tid);

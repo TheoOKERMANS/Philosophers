@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:09:59 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/16 19:59:59 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:11:50 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	mutex_print(t_id *tid, char *msg)
 		printf("%0.0fms ", time_diff(&(tid->game->start), &time));
 		printf("%d %s\n", tid->id, msg);
 	}
+	else
+		pthread_mutex_unlock(&(tid->game->philodied_mtx));
 	pthread_mutex_unlock(&(tid->game->prt_mtx));
 }
 
@@ -49,7 +51,7 @@ void	split_sleep(t_id *tid, int time)
 		gettimeofday(&temp, NULL);
 		if (time_diff(&start, &temp) >= time)
 			return ;
-		usleep(100);
+		usleep(200);
 		pthread_mutex_lock(&(tid->game->philodied_mtx));
 	}
 	pthread_mutex_unlock(&(tid->game->philodied_mtx));
