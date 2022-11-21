@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:06:03 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/21 01:32:19 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:52:42 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,9 @@ void	waiting_death(t_id *tid)
 			pthread_mutex_lock(&(tid->game->eat_mtx));
 			gettimeofday(&time, NULL);
 			tmp = get_id_by_id(tid, i);
-			pthread_mutex_lock(&(tmp->eatcount_mtx));
-			if (tmp->eat_count < tid->game->num_phi_eat && time_diff(&(tmp->lst_eat), &(time)) > tid->game->time2die)
+			if (tid_finish_eat(tmp) == 0
+				&& time_diff(&(tmp->lst_eat), &(time)) > tid->game->time2die)
 				philo_died(tid);
-			pthread_mutex_unlock(&(tmp->eatcount_mtx));
 			pthread_mutex_unlock(&(tid->game->eat_mtx));
 			usleep(100);
 		}

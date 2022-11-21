@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:14:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/16 20:00:37 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:53:02 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_id		*lst_tid(t_id *tid);
 t_id		*new_tid(int id, t_game *game);
 t_id		*get_id_by_id(t_id *tid, int id);
 void		add_back_tid(t_id **tid, t_id *new);
+int			tid_finish_eat(t_id *tmp);
 
 //free
 void		free_all(t_id *tid);

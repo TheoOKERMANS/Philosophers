@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:41:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/16 19:54:59 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:52:51 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ void	add_back_tid(t_id **tid, t_id *new)
 			*tid = new;
 		}
 	}
+}
+
+int	tid_finish_eat(t_id *tmp)
+{
+	int	res;
+
+	pthread_mutex_lock(&(tmp->eatcount_mtx));
+	if (tmp->eat_count < tmp->game->num_phi_eat)
+		res = 0;
+	else
+		res = 1;
+	pthread_mutex_unlock(&(tmp->eatcount_mtx));
+	return (res);
 }
