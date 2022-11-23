@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:14:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/21 01:53:02 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/23 12:25:03 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ void		free_all(t_id *tid);
 
 //init
 t_id		*init_all(char **argv, int num_phi_eat);
+
+//philoeat
+void		philo_incr_eat(t_id *tid);
 
 #endif

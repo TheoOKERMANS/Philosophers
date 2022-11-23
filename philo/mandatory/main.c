@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:11 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/21 00:17:23 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:32:30 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	test_args_value(char **argv)
 {
-	if (ft_atoi(argv[1]) < 2)
+	if (ft_atoi(argv[1]) < 1)
 	{
-		write(2, "Not enought philosophers\n", 25);
+		write(2, "Not enough philosophers\n", 25);
 		return (0);
 	}
 	return (1);
