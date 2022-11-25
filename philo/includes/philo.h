@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:14:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 09:48:17 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:13:17 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,40 @@ typedef struct s_id
 }	t_id;
 
 //utils
-void		mutex_print(t_id *tid, char *msg);
-size_t		ft_strlen(const char *str);
-void		split_sleep(t_id *tid, int time);
-int			all_eat(t_id *tid);
-void		philo_died(t_id *tid);
+void			mutex_print(t_id *tid, char *msg);
+size_t			ft_strlen(const char *str);
+void			split_sleep(t_id *tid, int time);
+int				all_eat(t_id *tid);
+void			philo_died(t_id *tid);
 
 //math
-int			ft_atoi(const char *str);
-float		time_diff(struct timeval *start, struct timeval *end);
-long long	ft_atoi_long(const char *str);
-int			all_num(char *str);
+int				ft_atoi(const char *str);
+float			time_diff(struct timeval *start, struct timeval *end);
+long long		ft_atoi_long(const char *str);
+int				all_num(char *str);
 
 //philo
-void		philo(char **argv, int num_phi_eat);
+void			philo(char **argv, int num_phi_eat);
 
 //tid
-t_id		*lst_tid(t_id *tid);
-t_id		*new_tid(int id, t_game *game);
-t_id		*get_id_by_id(t_id *tid, int id);
-void		add_back_tid(t_id **tid, t_id *new);
-int			tid_finish_eat(t_id *tmp);
+t_id			*lst_tid(t_id *tid);
+t_id			*new_tid(int id, t_game *game);
+t_id			*get_id_by_id(t_id *tid, int id);
+void			add_back_tid(t_id **tid, t_id *new);
+int				tid_finish_eat(t_id *tmp);
 
 //free
-void		free_all(t_id *tid);
+void			free_all(t_id *tid);
 
 //init
-t_id		*init_all(char **argv, int num_phi_eat);
+t_id			*init_all(char **argv, int num_phi_eat);
 
 //philoeat
-void		philo_incr_eat(t_id *tid);
+void			philo_incr_eat(t_id *tid);
+int				check_lsteat(t_id *tid);
+
+//fork
+pthread_mutex_t	*get_first_fork(t_id *tid);
+pthread_mutex_t	*get_second_fork(t_id *tid);
 
 #endif

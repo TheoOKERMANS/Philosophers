@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:06:03 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 10:13:57 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:12:43 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,8 @@ void	thread_eat(t_id *tid)
 	pthread_mutex_t	*m1;
 	pthread_mutex_t	*m2;
 
-	if (tid->id % 2 == 0)
-			m1 = &(tid->game->fork_lst[tid->id - 1]->mutex);
-	else
-	{
-		if (tid->id == tid->game->num_philo)
-			m1 = &(tid->game->fork_lst[0]->mutex);
-		else
-			m1 = &(tid->game->fork_lst[tid->id]->mutex);
-	}
-	if (tid->id % 2 == 0)
-	{
-		if (tid->id == tid->game->num_philo)
-			m2 = &(tid->game->fork_lst[0]->mutex);
-		else
-			m2 = &(tid->game->fork_lst[tid->id]->mutex);
-	}
-	else
-		m2 = &(tid->game->fork_lst[tid->id - 1]->mutex);
+	m1 = get_first_fork(tid);
+	m2 = get_second_fork(tid);
 	pthread_mutex_lock(m1);
 	mutex_print(tid, "has taken a fork");
 	if (tid->game->num_philo == 1)
@@ -59,7 +43,6 @@ void	*thread_func(void *args)
 	t_id	*tid;
 
 	tid = (t_id *)args;
-	
 	if (tid->id % 2 == 0)
 		usleep(tid->game->time2eat / 2);
 	pthread_mutex_lock(&(tid->eatcount_mtx));
@@ -97,7 +80,6 @@ void	waiting_allchild(t_id *tid)
 void	waiting_death(t_id *tid)
 {
 	int				i;
-	struct timeval	time;
 	t_id			*tmp;
 
 	pthread_mutex_lock(&(tid->game->philodied_mtx));
@@ -107,22 +89,13 @@ void	waiting_death(t_id *tid)
 		i = 0;
 		while (++i <= tid->game->num_philo)
 		{
-			// pthread_mutex_lock(&(tid->game->eat_mtx));
-			gettimeofday(&time, NULL);
 			tmp = get_id_by_id(tid, i);
-			pthread_mutex_lock(&(tmp->lsteat_mtx));
-			if (tid_finish_eat(tmp) == 0
-				&& time_diff(&(tmp->lst_eat), &(time)) > tid->game->time2die)
-			{
-				philo_died(tmp);
-				pthread_mutex_unlock(&(tmp->lsteat_mtx));
-				return ;
-			}
-			pthread_mutex_unlock(&(tmp->lsteat_mtx));
+			if (tid_finish_eat(tmp) == 0 && check_lsteat(tmp))
+				return (philo_died(tmp));
 		}
 		if (all_eat(tid))
 			return ;
-		usleep(10000);
+		usleep(1000);
 		pthread_mutex_lock(&(tid->game->philodied_mtx));
 	}
 	pthread_mutex_unlock(&(tid->game->philodied_mtx));

@@ -5,7 +5,8 @@ philo.c \
 tid.c \
 utils.c \
 init.c \
-philoeat.c
+philoeat.c \
+fork.c
 
 OBJ = $(SRC:.c=.o)
 CC = gcc

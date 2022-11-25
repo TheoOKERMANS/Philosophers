@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:11 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 09:13:32 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 10:42:14 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 int	test_args_value(int argc, char **argv)
 {
 	if (ft_atoi(argv[1]) < 1)
-	{
 		write(2, "Not enough philosophers\n", 25);
-		return (0);
-	}
 	if (ft_atoi(argv[2]) < 1)
-	{
 		write(2, "Time to die must be higher than 0\n", 34);
-		return (0);
-	}
 	if (ft_atoi(argv[3]) < 1)
 	{
 		write(2, "Time to eat must be higher than 0\n", 34);
@@ -40,6 +34,8 @@ int	test_args_value(int argc, char **argv)
 		write(2, " eat must be higher than 0\n", 27);
 		return (0);
 	}
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[2]) < 1)
+		return (0);
 	return (1);
 }
 
