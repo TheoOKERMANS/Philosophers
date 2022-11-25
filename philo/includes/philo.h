@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:14:43 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 11:13:17 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:08:29 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct s_id
 
 	pthread_mutex_t	eatcount_mtx;
 	pthread_mutex_t	lsteat_mtx;
+
+	pthread_mutex_t	*f1;
+	pthread_mutex_t	*f2;
 }	t_id;
 
 //utils

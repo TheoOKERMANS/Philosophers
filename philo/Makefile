@@ -14,7 +14,7 @@ FLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 $(NAME):
-	$(CC) -pthread -c $(addprefix mandatory/, $(SRC)) $(FLAGS)
+	$(CC) -pthread -c $(addprefix mandatory/, $(SRC)) $(FLAGS) -g
 	$(CC) -o $(NAME) $(FLAGS) $(OBJ) -g
 	mkdir obj
 	mv $(OBJ) obj

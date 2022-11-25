@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:09:59 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 10:46:21 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:09:12 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,38 @@ void	mutex_print(t_id *tid, char *msg)
 	struct timeval	time;
 
 	pthread_mutex_lock(&(tid->game->prt_mtx));
-	pthread_mutex_lock(&(tid->game->philodied_mtx));
+	//pthread_mutex_lock(&(tid->game->philodied_mtx));
 	if (tid->game->philo_died == 0)
 	{
-		pthread_mutex_unlock(&(tid->game->philodied_mtx));
+		// pthread_mutex_unlock(&(tid->game->philodied_mtx));
 		gettimeofday(&time, NULL);
 		printf("%0.0f ", time_diff(&(tid->game->start), &time));
 		printf("%d %s\n", tid->id, msg);
 	}
-	else
-		pthread_mutex_unlock(&(tid->game->philodied_mtx));
+	//else
+		//pthread_mutex_unlock(&(tid->game->philodied_mtx));
 	pthread_mutex_unlock(&(tid->game->prt_mtx));
+	
 }
 
 void	split_sleep(t_id *tid, int time)
 {
-	struct timeval	start;
-	struct timeval	temp;
+	// struct timeval	start;
+	// struct timeval	temp;
 
-	gettimeofday(&start, NULL);
-	pthread_mutex_lock(&(tid->game->philodied_mtx));
-	while (tid->game->philo_died == 0)
-	{
-		pthread_mutex_unlock(&(tid->game->philodied_mtx));
-		gettimeofday(&temp, NULL);
-		if (time_diff(&start, &temp) >= time)
-			return ;
-		usleep(200);
-		pthread_mutex_lock(&(tid->game->philodied_mtx));
-	}
-	pthread_mutex_unlock(&(tid->game->philodied_mtx));
+	// gettimeofday(&start, NULL);
+	// //pthread_mutex_lock(&(tid->game->philodied_mtx));
+	// while (1)//tid->game->philo_died == 0)
+	// {
+	// 	//pthread_mutex_unlock(&(tid->game->philodied_mtx));
+	// 	gettimeofday(&temp, NULL);
+	// 	if (time_diff(&start, &temp) >= time)
+	// 		return ;
+		usleep(time * 1000);
+		//pthread_mutex_lock(&(tid->game->philodied_mtx));
+	// }
+	//pthread_mutex_unlock(&(tid->game->philodied_mtx));
+	(void)tid;
 }
 
 size_t	ft_strlen(const char *str)
