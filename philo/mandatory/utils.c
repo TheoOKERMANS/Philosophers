@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:09:59 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/21 01:11:50 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:36:53 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 void	philo_died(t_id *tid)
 {
 	mutex_print(tid, "died");
+	// struct timeval	time;
+	// gettimeofday(&time, NULL);
+	// printf("%d : %0.0f > %d = %d\n", tid->id, time_diff(&(tid->lst_eat), &(time))
+	// 				, tid->game->time2die, time_diff(&(tid->lst_eat), &(time)) > tid->game->time2die);
 	pthread_mutex_lock(&(tid->game->philodied_mtx));
 	tid->game->philo_died = 1;
 	pthread_mutex_unlock(&(tid->game->philodied_mtx));
@@ -30,7 +34,7 @@ void	mutex_print(t_id *tid, char *msg)
 	{
 		pthread_mutex_unlock(&(tid->game->philodied_mtx));
 		gettimeofday(&time, NULL);
-		printf("%0.0fms ", time_diff(&(tid->game->start), &time));
+		printf("%0.0f ", time_diff(&(tid->game->start), &time));//rajouter le ms
 		printf("%d %s\n", tid->id, msg);
 	}
 	else

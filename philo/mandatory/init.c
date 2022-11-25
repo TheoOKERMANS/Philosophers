@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:54:49 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/16 19:57:09 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:48:31 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_id	*init_all_tid(char **argv, t_game *game)
 		add_back_tid(&res, new_tid(i + 1, game));
 		gettimeofday(&((get_id_by_id(res, i + 1)->lst_eat)), NULL);
 		pthread_mutex_init(&(get_id_by_id(res, i + 1)->eatcount_mtx), NULL);
+		pthread_mutex_init(&(get_id_by_id(res, i + 1)->lsteat_mtx), NULL);
 	}
 	return (res);
 }
