@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 12:23:19 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 16:29:20 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:08:48 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	philo_incr_eat(t_id *tid)
 
 int	check_lsteat(t_id *tid)
 {
-	int	res;
+	int				res;
 	struct timeval	time;
 
 	res = 0;

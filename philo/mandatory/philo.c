@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:06:03 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/25 17:17:00 by tokerman         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:08:33 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	thread_eat(t_id *tid)
 {
-	//mutex_print(tid, "enter thread eat");
 	pthread_mutex_lock(tid->f1);
 	mutex_print(tid, "has taken a fork");
 	if (tid->game->num_philo == 1)
@@ -30,10 +29,8 @@ void	thread_eat(t_id *tid)
 	gettimeofday(&(tid->lst_eat), NULL);
 	pthread_mutex_unlock(&(tid->lsteat_mtx));
 	split_sleep(tid, tid->game->time2eat);
-	//mutex_print(tid, "unlock mutex");
 	pthread_mutex_unlock(tid->f1);
 	pthread_mutex_unlock(tid->f2);
-	//mutex_print(tid, "ended thread eat");
 }
 
 void	*thread_func(void *args)
@@ -56,7 +53,6 @@ void	*thread_func(void *args)
 		}
 		pthread_mutex_unlock(&(tid->game->philodied_mtx));
 		philo_incr_eat(tid);
-		//mutex_print(tid, "ended thinking");
 		pthread_mutex_lock(&(tid->eatcount_mtx));
 	}
 	pthread_mutex_unlock(&(tid->eatcount_mtx));
