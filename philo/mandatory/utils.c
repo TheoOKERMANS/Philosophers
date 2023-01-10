@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:09:59 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/28 10:09:19 by tokerman         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:05:06 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	philo_died(t_id *tid)
 	pthread_mutex_lock(&(tid->game->philodied_mtx));
 	tid->game->philo_died = 1;
 	pthread_mutex_unlock(&(tid->game->philodied_mtx));
-	pthread_mutex_unlock(&(tid->lsteat_mtx));
+	//pthread_mutex_unlock(&(tid->lsteat_mtx));
 }
 
 void	mutex_print(t_id *tid, char *msg)
@@ -26,12 +26,16 @@ void	mutex_print(t_id *tid, char *msg)
 	struct timeval	time;
 
 	pthread_mutex_lock(&(tid->game->prt_mtx));
+	pthread_mutex_lock(&(tid->game->philodied_mtx));
 	if (tid->game->philo_died == 0)
 	{
+		pthread_mutex_unlock(&(tid->game->philodied_mtx));
 		gettimeofday(&time, NULL);
 		printf("%0.0f ", time_diff(&(tid->game->start), &time));
 		printf("%d %s\n", tid->id, msg);
 	}
+	else
+		pthread_mutex_unlock(&(tid->game->philodied_mtx));
 	pthread_mutex_unlock(&(tid->game->prt_mtx));
 }
 

@@ -6,7 +6,7 @@
 /*   By: tokerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:06:03 by tokerman          #+#    #+#             */
-/*   Updated: 2022/11/28 10:08:33 by tokerman         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:51:24 by tokerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	thread_eat(t_id *tid)
 	mutex_print(tid, "has taken a fork");
 	if (tid->game->num_philo == 1)
 	{
-		split_sleep(tid, tid->game->time2die);
+		split_sleep(tid, tid->game->time2die + 1);
 		pthread_mutex_unlock(tid->f1);
 		return ;
 	}
